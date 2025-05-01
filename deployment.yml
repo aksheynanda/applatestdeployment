@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-latest-sa
+  namespace: app
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::851765306105:role/pod-app-latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-latest-app
+  namespace: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      serviceAccountName: app-latest-sa
+      containers:
+        - name: my-app
+          image: 851765306105.dkr.ecr.us-east-1.amazonaws.com/dockerimagenginix
+          ports:
+            - containerPort: 5000
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-latest-svc
+  namespace: app
+spec:
+  selector:
+    app: app1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
+
