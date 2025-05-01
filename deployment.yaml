@@ -4,7 +4,7 @@ metadata:
   name: app-latest-sa
   namespace: app
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::851765306105:role/pod-app-latest
+    eks.amazonaws.com/role-arn: arn:aws:iam::XXXXXXXX:role/pod-app-latest
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -24,7 +24,7 @@ spec:
       serviceAccountName: app-latest-sa
       containers:
         - name: my-app
-          image: 851765306105.dkr.ecr.us-east-1.amazonaws.com/dockerimagenginix
+          image: XXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/dockerimagenginix
           ports:
             - containerPort: 5000
 ---
